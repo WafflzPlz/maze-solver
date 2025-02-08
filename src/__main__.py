@@ -1,9 +1,11 @@
 from .generator.maze_generator import MazeGenerator
+from .maze.grid import Grid
 
 
 def main():
-    generator = MazeGenerator(1, 1)
-    generator.print_message("hello")
+    grid = Grid(20, 20)
+
+    grid.print_cells()
 
 
 if __name__ == "__main__":

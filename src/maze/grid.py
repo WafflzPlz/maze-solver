@@ -10,7 +10,7 @@ class Grid:
 
     def __post_init__(self):
         self.cells = [
-            [Cell() for _ in range(0, self.width)] for _ in range(0, self.height)
+            [Cell(x, y) for x in range(self.width)] for y in range(self.height)
         ]
 
     def set_cells(self, cells: list[list]):

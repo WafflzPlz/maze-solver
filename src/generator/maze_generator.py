@@ -18,25 +18,22 @@ class MazeGenerator:
         stack = [current]
 
         while len(stack) != 0:
+            current = stack.pop()
             x = current.x
             y = current.y
-            popped = False
             choice = random.randint(0, 3)
 
-            for i in range(5):
-                if i > 3:
-                    current = stack.pop()
-                    popped = True
-                    break
-
+            for _ in range(4):
                 match choice:
                     case 0:
                         if y - 1 >= 0:
                             neighbor = cells[y - 1][x]
 
                             if neighbor not in visited:
+                                stack.append(current)
                                 self.create_connection(current, neighbor, "n")
-                                current = neighbor
+                                stack.append(neighbor)
+                                visited.add(neighbor)
                                 break
 
                     case 1:
@@ -44,16 +41,20 @@ class MazeGenerator:
                             neighbor = cells[y][x + 1]
 
                             if neighbor not in visited:
+                                stack.append(current)
                                 self.create_connection(current, neighbor, "e")
-                                current = neighbor
+                                stack.append(neighbor)
+                                visited.add(neighbor)
                                 break
                     case 2:
                         if y + 1 < height:
                             neighbor = cells[y + 1][x]
 
                             if neighbor not in visited:
+                                stack.append(current)
                                 self.create_connection(current, neighbor, "s")
-                                current = neighbor
+                                stack.append(neighbor)
+                                visited.add(neighbor)
                                 break
 
                     case 3:
@@ -61,15 +62,13 @@ class MazeGenerator:
                             neighbor = cells[y][x - 1]
 
                             if neighbor not in visited:
+                                stack.append(current)
                                 self.create_connection(current, neighbor, "w")
-                                current = neighbor
+                                stack.append(neighbor)
+                                visited.add(neighbor)
                                 break
 
                 choice = (choice + 1) % 4
-
-            if not popped:
-                stack.append(current)
-                visited.add(current)
 
         return grid
 

@@ -25,8 +25,8 @@ class Cell:
 
     def __eq__(self, o):
         if isinstance(o, Cell):
-            return self.walls == o.walls and self.x == o.x and self.y == o.y
+            return self.x == o.x and self.y == o.y
         return False
 
     def __hash__(self):
-        return hash((self.x, self.y, *self.walls))
+        return hash((self.x, self.y))

@@ -1,11 +1,9 @@
-from dataclasses import dataclass
+from src.maze.grid import Grid
 
 
-@dataclass
 class MazeGenerator:
     """Class for representing maze generator"""
-    height: int
-    width: int
 
-    def print_message(self, message: str):
-        print(message)
+    def generate_maze(self, width: int, height: int) -> Grid:
+        grid = Grid(width, height)
+        return grid

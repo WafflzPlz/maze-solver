@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Cell:
+    visited: bool = field(default=False, init=False)
     walls: set = field(default_factory=lambda: {"n", "e", "s", "w"})
 
     def set_walls(self, new_walls: set):

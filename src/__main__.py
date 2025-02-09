@@ -1,9 +1,11 @@
-from .maze.grid import Grid
+from .generator.maze_generator import MazeGenerator
 import pygame
 
 
 def main():
-    grid = Grid(20, 20)
+
+    generator = MazeGenerator()
+    grid = generator.generate_maze(20, 20)
     cells = grid.cells
 
     screen = pygame.display.set_mode((500, 500))

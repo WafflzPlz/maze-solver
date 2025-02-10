@@ -1,14 +1,15 @@
+from src.generator.backtracking import MazeGeneratorBacktracking
 from src.generator.maze_generator import MazeGenerator
+from src.maze.grid import Grid
 import pygame
 
 
 def main():
 
-    generator = MazeGenerator()
-    grid = generator.generate_maze(20, 20)
-    cells = grid.cells
+    generator: MazeGenerator = MazeGeneratorBacktracking()
+    grid: Grid = generator.generate_maze(20, 20, True)
 
-    screen = pygame.display.set_mode((500, 500))
+    screen: pygame.display = pygame.display.set_mode((500, 500))
     CELL_SIZE = 25
 
     pygame.display.flip()
@@ -17,50 +18,7 @@ def main():
 
     while running:
         screen.fill((255, 255, 255))
-
-        for y in range(0, len(cells)):
-            for x in range(0, len(cells[y])):
-                walls = cells[y][x].walls
-                for wall in walls:
-                    match wall:
-                        case "n":
-                            pygame.draw.line(
-                                screen,
-                                (0, 0, 0),
-                                (CELL_SIZE * x, CELL_SIZE * y),
-                                (CELL_SIZE * x + CELL_SIZE, CELL_SIZE * y),
-                                1,
-                            )
-
-                        case "e":
-                            pygame.draw.line(
-                                screen,
-                                (0, 0, 0),
-                                (CELL_SIZE * x + CELL_SIZE, CELL_SIZE * y),
-                                (CELL_SIZE * x + CELL_SIZE,
-                                 CELL_SIZE * y + CELL_SIZE),
-                                1,
-                            )
-
-                        case "s":
-                            pygame.draw.line(
-                                screen,
-                                (0, 0, 0),
-                                (CELL_SIZE * x, CELL_SIZE * y + CELL_SIZE),
-                                (CELL_SIZE * x + CELL_SIZE,
-                                 CELL_SIZE * y + CELL_SIZE),
-                                1,
-                            )
-
-                        case "w":
-                            pygame.draw.line(
-                                screen,
-                                (0, 0, 0),
-                                (CELL_SIZE * x, CELL_SIZE * y),
-                                (CELL_SIZE * x, CELL_SIZE * y + CELL_SIZE),
-                                1,
-                            )
-
+        grid.draw(screen, CELL_SIZE)
         pygame.display.flip()
 
         for event in pygame.event.get():
